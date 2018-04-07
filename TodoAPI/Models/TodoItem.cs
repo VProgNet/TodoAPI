@@ -14,7 +14,8 @@ namespace TodoAPI.Models
         public List<TodoItem> toList()
         {
             List<TodoItem> lst = new List<TodoItem>();
-            lst.Append(this);
+            lst.Add(this);
+            //lst.Append(this);
             return lst;
         }
         /*public override string ToString() => Name;*/
