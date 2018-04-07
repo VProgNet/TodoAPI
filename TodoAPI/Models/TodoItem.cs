@@ -11,6 +11,12 @@ namespace TodoAPI.Models
         public string Name { get; set; }
         public bool IsComplete { get; set; }
 
+        public List<TodoItem> toList()
+        {
+            List<TodoItem> lst = new List<TodoItem>();
+            lst.Append(this);
+            return lst;
+        }
         /*public override string ToString() => Name;*/
     }
 }

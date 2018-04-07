@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+
 using Microsoft.AspNetCore.Mvc;
+
 
 using TodoAPI.Models;
 
@@ -25,11 +31,25 @@ namespace TodoAPI.Controllers
                 _context.TodoItems.Add(new TodoItem { Name = "Item1" });
                 _context.SaveChanges();
             }
+
         }
         [HttpGet]
         public IEnumerable<TodoItem> GetAll()
         {
             return _context.TodoItems.ToList();
+        }
+
+        [HttpGet("doc")]
+        public IActionResult GetAllDoc()
+        {
+            _context.TodoItems.ToList();
+            DocCreator doc = new DocCreator(_context.TodoItems.ToList());
+            var stream = doc.GetDocStream();
+            var response = File(stream, "application/octet-stream"); // FileStreamResult
+            response.FileDownloadName ="Todo.docx";
+            return response;
+
+
         }
 
         [HttpGet("{id}", Name = "GetTodo")]
@@ -42,6 +62,37 @@ namespace TodoAPI.Controllers
             }
             return new ObjectResult(item);
         }
+
+        [HttpGet("{id}/doc")]
+        public IActionResult GetByIdDoc(long id)
+        {
+            var item = _context.TodoItems.FirstOrDefault(t => t.Id == id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            DocCreator doc = new DocCreator(item.toList());
+            var stream = doc.GetDocStream();
+            var response = File(stream, "application/octet-stream"); // FileStreamResult
+            response.FileDownloadName = "Todo.docx";
+            return response;
+            //return new ObjectResult(item);
+        }
+        [HttpGet("{id}/xml")]
+        public IActionResult GetByIdXML(long id)
+        {
+            var item = _context.TodoItems.FirstOrDefault(t => t.Id == id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(item);
+
+            
+            //return NotFound();
+            //return _context.TodoItems.ToList();
+        }
+
         [HttpPost]
         public IActionResult Create([FromBody] TodoItem item)
         {
