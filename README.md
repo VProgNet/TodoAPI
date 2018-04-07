@@ -12,7 +12,7 @@ you can:
 	GET <adress>:<port>/api/todo/<id>
 	
 	DOCX get todo from db
-	GET <adress>:<port>/api/todo/<id>
+	GET <adress>:<port>/api/todo/<id>/doc
 	
 	JSON add new todo task
 	POST <adress>:<port>/api/todo
