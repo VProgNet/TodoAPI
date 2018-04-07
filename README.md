@@ -10,22 +10,22 @@ you can:
 	
 	add new todo task
 	POST <adress>:<port>/api/todo
-		{
-			"name":<task_name>,
-			"IsComplete":true|false
-		}
+	{
+		"name":<task_name>,
+		"IsComplete":true|false
+	}
 		
 	Update existing todo
 	PUT <adress>:<port>/api/todo/<id>
-		{
-			"id":<id>
-			"name":<task_name>,
-			"IsComplete":true|false
-		}
+	{
+		"id":<id>
+		"name":<task_name>,
+		"IsComplete":true|false
+	}
 		
 	Delete existing todo
 	DELETE <adress>:<port>/api/todo/<id>
-		{
-			"id":<id>
-		}
+	{
+		"id":<id>
+	}
 	
